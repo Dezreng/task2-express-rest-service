@@ -1,6 +1,13 @@
-const getAll = async () => {
-  // TODO: mock implementation. should be replaced during task development
-  return [];
-};
+const DB = require('../../bd/isMemoryRepositoryDB');
 
-module.exports = { getAll };
+const TABLE_NAME = 'Users'
+
+const getAll = async () => DB.getAll(TABLE_NAME);
+
+const get = async (id) => DB.get(TABLE_NAME, id);
+
+const add = async (user) => DB.add(TABLE_NAME, user);
+
+const update = async (id, params) => DB.update(TABLE_NAME, id, params);
+
+module.exports = { getAll, get, add, update };
