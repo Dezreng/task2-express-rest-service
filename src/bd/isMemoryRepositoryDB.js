@@ -12,7 +12,7 @@ const db = {
 			});
 		}
 	},
-	fixBoardStructure: ( board ) => {
+	fixBoardsStructure: ( board ) => {
 		if(board){
 			db.Tasks.filter( task => task ).forEach(task => {
 				db.Tasks[db.Tasks.indexOf(task)] = undefined
@@ -44,10 +44,10 @@ const remove = ( tableName, id ) => {
 	return entity;
 };
 
-const add = (tableName, entity) => {
-	db[tableName].push(entity);
+const add = (tableName, obj) => {
+	db[tableName].push(obj);
 
-	return get(tableName, entity.id);
+	return get(tableName, obj.id);
 };
 
 const update = async (tableName, id, params) => {

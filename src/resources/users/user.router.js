@@ -13,7 +13,7 @@ router.route('/:id').get(async (req, res) => {
 });
 
 router.route('/').post(async (req, res) => {
-	const user = await usersService.add(new User(req.body));
+	const user = await usersService.add(req.body);
 	res.status(201).json(User.toResponse(user))
 })
 
@@ -24,7 +24,7 @@ router.route('/:id').put(async (req, res) => {
 
 router.route('/:id').delete(async (req, res) => {
 	await usersService.remove(req.params.id);
-	res.status(204);
+	res.status(204).json();
 })
 
 module.exports = router;
