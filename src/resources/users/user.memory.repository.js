@@ -10,4 +10,6 @@ const add = async (user) => DB.add(TABLE_NAME, user);
 
 const update = async (id, params) => DB.update(TABLE_NAME, id, params);
 
-module.exports = { getAll, get, add, update };
+const remove = async (id) => DB.remove(TABLE_NAME, id);
+
+module.exports = { getAll, get, add, update, remove };

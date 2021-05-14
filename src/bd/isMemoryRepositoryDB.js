@@ -1,5 +1,7 @@
+const User = require('../resources/users/user.model');
+
 const db = {
-	Users: [{id:"1", name:'1', login: '1', password: 'eew'}, {id:2, name:'2', login: '2', password: 'eefw'}],
+	Users: [new User(), {id:'1', name:'1', login: '1', password: 'eefw'}, {id: '2', name:'2', login: '2', password: 'eefw'}],
 	Boards: [],
 	Tasks: [],
 	fixUsersStructure: ( user ) => {
@@ -36,12 +38,7 @@ const remove = ( tableName, id ) => {
 	const entity = get(tableName, id)
 	if (entity) {
 		db[`fix${tableName}Structure`](entity);
-		const index = db[tableName].indexOf(entity);
-		db[tableName] = [
-			...db[tableName].slice(0, index),
-			...(db[tableName].length > index + 1
-				? db[tableName].slice(index + 1) : [])
-		];
+		db[tableName] = db[tableName].filter(user => user !== entity);
 	}
 
 	return entity;
@@ -55,11 +52,9 @@ const add = (tableName, entity) => {
 
 const update = async (tableName, id, params) => {
 	const oldEntity = get(tableName, id);
-	// console.log(oldEntity);
+
 	if (oldEntity) {
-		console.log({ ...params })
-		db[tableName][db[tableName].indexOf(oldEntity)] = { ...params };
-		console.log(db.Users);
+		Object.assign(db[tableName][db[tableName].indexOf(oldEntity)], {...params})
 	}
 
 	return get(tableName, id);
