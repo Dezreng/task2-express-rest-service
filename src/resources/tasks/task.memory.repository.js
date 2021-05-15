@@ -3,17 +3,27 @@ const Task = require('./task.model');
 
 const TABLE_NAME = 'Tasks'
 
-const getAll = async () => DB.getAll(TABLE_NAME);
+const getAllTask = async (id) => DB.getAll(TABLE_NAME, id);
 
-const get = async (id) => DB.get(TABLE_NAME, id);
+const getTask = async (idTask, idBoard) => DB.getTask(TABLE_NAME, idTask, idBoard);
 
-const add = async (reqBody) => {
-	const user = new Task(reqBody);
+const add = async (reqBody, reqParams) => {
+	const { boardIdParam } = reqParams;
+	const { title, order, description, userId, boardId, columnId } = reqBody;
+	const taskObj = {
+		'title': title,
+		'order': order,
+		'description': description,
+		'userId': userId,
+		'boardId' : boardId || boardIdParam,
+		'columnId': columnId
+	}
+	const user = new Task(taskObj);
 	return DB.add(TABLE_NAME, user);
 }
 
-const update = async (id, params) => DB.update(TABLE_NAME, id, params);
+const updateTask = async (idTask, idBoard, params) => DB.updateTask(TABLE_NAME, idTask, idBoard, params);
 
-const remove = async (id) => DB.remove(TABLE_NAME, id);
+const removeTask = async (idTask, idBoard) => DB.removeTask(TABLE_NAME, idTask, idBoard);
 
-module.exports = { getAll, get, add, update, remove };
+module.exports = { getAllTask, getTask, add, updateTask, removeTask };
