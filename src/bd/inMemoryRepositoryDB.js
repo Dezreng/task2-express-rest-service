@@ -15,11 +15,16 @@ const db = {
 		if(board){
 			db.Tasks = db.Tasks.filter(task => task.boardId !== board.id )
 		}
-	},
-	fixTasksStructure: () => {}
+	}
 };
 
 const getAll = tableName => db[tableName];
+
+const getAllTask = (tableName, idBoard) => {
+	const getAllTaskBoard = db[tableName].filter(task => task.boardId === idBoard);
+
+	return getAllTaskBoard;
+};
 
 const get = (tableName, id) => {
 	const entitie = db[tableName].find(entity => entity.id === id);
@@ -27,12 +32,26 @@ const get = (tableName, id) => {
 	return entitie;
 };
 
+const getTask = (tableName, idTask, idBoard) => {
+	const entitie = db[tableName].find(task => task.id === idTask && task.boardId === idBoard);
+
+	return entitie;
+}
+
 const remove = ( tableName, id ) => {
 	const entity = get(tableName, id)
 	if (entity) {
 		db[`fix${tableName}Structure`](entity);
 		db[tableName] = db[tableName].filter(user => user !== entity);
 	}
+
+	return entity;
+};
+
+const removeTask = ( tableName, idTask, idBoard ) => {
+	const entity = getTask(tableName, idTask, idBoard);
+
+	db[tableName] = db[tableName].filter(task => task !== entity);
 
 	return entity;
 };
@@ -53,10 +72,24 @@ const update = async (tableName, id, params) => {
 	return get(tableName, id);
 };
 
+const updateTask = async (tableName, idTask, idBoard, params) => {
+	const oldEntity = getTask(tableName, idTask, idBoard);
+
+	if (oldEntity) {
+		Object.assign(db[tableName][db[tableName].indexOf(oldEntity)], {...params})
+	}
+
+	return getTask(tableName, idTask, idBoard);
+};
+
 module.exports = { 
 	getAll,
+	getAllTask,
 	get,
+	getTask,
 	remove,
+	removeTask,
 	add,
-	update
+	update,
+	updateTask
  }
