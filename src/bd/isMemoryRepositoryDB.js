@@ -1,37 +1,30 @@
-const User = require('../resources/users/user.model');
-
 const db = {
-	Users: [new User(), {id:'1', name:'1', login: '1', password: 'eefw'}, {id: '2', name:'2', login: '2', password: 'eefw'}],
+	Users: [],
 	Boards: [],
 	Tasks: [],
 	fixUsersStructure: ( user ) => {
 		if(user){
-			db.Tasks.filter(task => task).forEach(task => {
-				// eslint-disable-next-line no-param-reassign
-				task.userId = task.userId === user.id ? null : task.userId
-			});
+			db.Tasks.map(task => {
+				const taskUser = task;
+				taskUser.userId = task.userId === user.id ? null : task.userId;
+				return taskUser;
+			})
 		}
 	},
 	fixBoardsStructure: ( board ) => {
 		if(board){
-			db.Tasks.filter( task => task ).forEach(task => {
-				db.Tasks[db.Tasks.indexOf(task)] = undefined
-			})
+			db.Tasks = db.Tasks.filter(task => task.boardId !== board.id )
 		}
-	}
+	},
+	fixTasksStructure: () => {}
 };
 
 const getAll = tableName => db[tableName];
 
 const get = (tableName, id) => {
-	const entities = db[tableName].filter(entity => entity.id === id);
+	const entitie = db[tableName].find(entity => entity.id === id);
 
-	if (entities.length > 1) {
-		console.error(`The DB data is damaged, table: ${tableName}. Entuty ID: ${id}`)
-		throw Error('The DB data is wrong!');
-	}
-
-	return entities[0];
+	return entitie;
 };
 
 const remove = ( tableName, id ) => {
