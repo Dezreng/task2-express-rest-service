@@ -1,4 +1,4 @@
-const DB = require('../../bd/isMemoryRepositoryDB');
+const DB = require('../../bd/inMemoryRepositoryDB');
 const Board = require('./board.model');
 
 const TABLE_NAME = 'Boards'

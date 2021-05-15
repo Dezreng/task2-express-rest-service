@@ -1,7 +1,7 @@
-const DB = require('../../bd/isMemoryRepositoryDB');
+const DB = require('../../bd/inMemoryRepositoryDB');
 const User = require('./user.model');
 
-const TABLE_NAME = 'Users'
+const TABLE_NAME = 'Users';
 
 const getAll = async () => DB.getAll(TABLE_NAME);
 
@@ -10,7 +10,7 @@ const get = async (id) => DB.get(TABLE_NAME, id);
 const add = async (reqBody) => {
 	const user = new User(reqBody);
 	return DB.add(TABLE_NAME, user);
-}
+};
 
 const update = async (id, params) => DB.update(TABLE_NAME, id, params);
 

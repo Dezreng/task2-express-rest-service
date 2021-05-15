@@ -5,22 +5,12 @@ class Board {
   constructor({
     id = uuidv4(),
     title = 'BOARD',
-		columns = [],
+		columns = null,
   } = {}) {
     this.id = id;
     this.title = title;
-		this.columns = this.createColum(columns);
+		this.columns = columns !== null ? columns.map(col => new Colum(col)) : null;
   }
-
-	// eslint-disable-next-line class-methods-use-this
-	createColum(option) {
-		const columns = [];
-		// eslint-disable-next-line no-plusplus
-		for(let i = 0; i < option.length; i++){
-			columns.push(new Colum(option[i]));
-		}
-		return columns;
-	}
 
   static toResponse(board) {
     const { id, title, columns } = board;
