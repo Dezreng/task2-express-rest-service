@@ -5,7 +5,7 @@ const db = {
 
 	/**
 	 * Updating tasks when deleting a user
-	 * @param {object} user 
+	 * @param {object} user The object class User
 	 */
 	fixUsersStructure: ( user ) => {
 		if(user){
@@ -19,7 +19,7 @@ const db = {
 
 	/**
 	 * Updating tasks when deleting a board
-	 * @param {object} board 
+	 * @param {object} board The object class Board
 	 */
 	fixBoardsStructure: ( board ) => {
 		if(board){
@@ -30,16 +30,16 @@ const db = {
 
 /**
  * Requesting all entities from the database
- * @param {stirng} tableName 
- * @returns {Array}
+ * @param {stirng} tableName The name table database
+ * @returns {Array} return array entity
  */
 const getAll = tableName => db[tableName];
 
 /**
  * Requesting all tasks from the database
- * @param {string} tableName 
- * @param {string} idBoard 
- * @returns {Array}
+ * @param {string} tableName The name table database
+ * @param {string} idBoard The id board
+ * @returns {Array} return array tasks
  */
 const getAllTask = (tableName, idBoard) => {
 	const getAllTaskBoard = db[tableName].filter(task => task.boardId === idBoard);
@@ -48,9 +48,9 @@ const getAllTask = (tableName, idBoard) => {
 
 /**
  * Request for one entity from the database
- * @param {string} tableName 
- * @param {string} id 
- * @returns {object}
+ * @param {string} tableName The name table database
+ * @param {string} id The id entity
+ * @returns {object} return entity
  */
 const get = (tableName, id) => {
 	const entitie = db[tableName].find(entity => entity.id === id);
@@ -59,10 +59,10 @@ const get = (tableName, id) => {
 
 /**
  * Request for task from the database
- * @param {string} tableName 
- * @param {string} idTask 
- * @param {string} idBoard 
- * @returns {object}
+ * @param {string} tableName The name table database
+ * @param {string} idTask The id task
+ * @param {string} idBoard The id board
+ * @returns {object} return task 
  */
 const getTask = (tableName, idTask, idBoard) => {
 	const entitie = db[tableName].find(task => task.id === idTask && task.boardId === idBoard);
@@ -71,9 +71,9 @@ const getTask = (tableName, idTask, idBoard) => {
 
 /**
  * Removing an entity from the base
- * @param {string} tableName 
- * @param {stirng} id 
- * @returns {object}
+ * @param {string} tableName The name table database
+ * @param {stirng} id The id entity
+ * @returns {object} return delete entity
  */
 const remove = ( tableName, id ) => {
 	const entity = get(tableName, id)
@@ -88,10 +88,10 @@ const remove = ( tableName, id ) => {
 
 /**
  * Removing an task from the base
- * @param {string} tableName 
- * @param {string} idTask 
- * @param {string} idBoard 
- * @returns {object}
+ * @param {string} tableName The name table database
+ * @param {string} idTask The id task
+ * @param {string} idBoard The id board
+ * @returns {object} return delete Entity
  */
 const removeTask = ( tableName, idTask, idBoard ) => {
 	const entity = getTask(tableName, idTask, idBoard);
@@ -103,9 +103,9 @@ const removeTask = ( tableName, idTask, idBoard ) => {
 
 /**
  * Adding an entity to databases
- * @param {stirng} tableName 
- * @param {object} obj 
- * @returns {object}
+ * @param {stirng} tableName The name table database
+ * @param {object} obj The new Entity
+ * @returns {object} return new Entity
  */
 const add = (tableName, obj) => {
 	db[tableName].push(obj);
@@ -115,10 +115,10 @@ const add = (tableName, obj) => {
 
 /**
  * Updating an entity in the database
- * @param {string} tableName 
- * @param {string} id 
- * @param {object} params 
- * @returns {object}
+ * @param {string} tableName The name table database
+ * @param {string} id The id entity
+ * @param {object} params The parametrs for chang entity
+ * @returns {object} return update entity
  */
 const update = async (tableName, id, params) => {
 	const oldEntity = get(tableName, id);
@@ -132,11 +132,11 @@ const update = async (tableName, id, params) => {
 
 /**
  * Updating an task in the database
- * @param {string} tableName 
- * @param {string} idTask 
- * @param {string} idBoard 
- * @param {object} params 
- * @returns {object}
+ * @param {string} tableName The name table database
+ * @param {string} idTask The id task
+ * @param {string} idBoard The id board
+ * @param {object} params The parametrs for chang task
+ * @returns {object} return update task
  */
 const updateTask = async (tableName, idTask, idBoard, params) => {
 	const oldEntity = getTask(tableName, idTask, idBoard);

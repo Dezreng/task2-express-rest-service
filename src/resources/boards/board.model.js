@@ -5,7 +5,7 @@ const Colum = require('./board.colum');
 class Board {
 	/**
 	 * Create a Board
-	 * @param {object} param0 
+	 * @param {object} param0 The object params for create Board
 	 */
   constructor({
     id = uuidv4(),
@@ -19,8 +19,8 @@ class Board {
 
 	/**
 	 * Transforming a board for a response
-	 * @param {object} board 
-	 * @returns {object}
+	 * @param {object} board The entity Board
+	 * @returns {object} return the required fields
 	 */
   static toResponse(board) {
     const { id, title, columns } = board;

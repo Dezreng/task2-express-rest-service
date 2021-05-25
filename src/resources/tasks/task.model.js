@@ -5,7 +5,7 @@ class Task {
 
 	/**
 	 * Create a Task
-	 * @param {object} param0 
+	 * @param {object} param0 The object params for create Task
 	 */
   constructor({
     id = uuidv4(),
@@ -27,8 +27,8 @@ class Task {
 
 	/**
 	 * Transforming a task for a response
-	 * @param {object} task 
-	 * @returns {object}
+	 * @param {object} task The entity Task
+	 * @returns {object} return the required fields
 	 */
   static toResponse(task) {
     const { id, title, order, description, userId, boardId, columnId } = task;

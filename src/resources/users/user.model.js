@@ -6,7 +6,7 @@ class User {
 
 	/**
 	 * Create a User
-	 * @param {object} param0 
+	 * @param {object} param0 The object params for create User
 	 */
   constructor({
     id = uuidv4(),
@@ -23,8 +23,8 @@ class User {
 
 	/**
 	 * Transforming a user for a response
-	 * @param {object} user 
-	 * @returns {object}
+	 * @param {object} user The entity User
+	 * @returns {object} return the required fields
 	 */
   static toResponse(user) {
     const { id, name, login } = user;
