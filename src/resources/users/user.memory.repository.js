@@ -14,7 +14,7 @@ const getAll = async () => DB.getAll(TABLE_NAME);
  * Return user in the database
  * @async
  * @param {string} id The id user
- * @returns {Promise<object>} return user
+ * @returns {Promise<object> | Promise<undefined>} return user
  */
 const get = async (id) => DB.get(TABLE_NAME, id);
 
@@ -42,7 +42,6 @@ const update = async (id, params) => DB.update(TABLE_NAME, id, params);
  * Removing a user from the database
  * @async
  * @param {string} id The id user
- * @returns {Promise<object>} return remove user
  */
 const remove = async (id) => DB.remove(TABLE_NAME, id);
 

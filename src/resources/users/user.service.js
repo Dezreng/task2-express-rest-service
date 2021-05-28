@@ -9,7 +9,7 @@ const getAll = () => usersRepo.getAll();
 /**
  * Return user in the database
  * @param {string} id The id user
- * @returns {Promise<object>} return user
+ * @returns {Promise<object> | Promise<undefined>} return user
  */
 const get = (id) => usersRepo.get(id);
 
@@ -31,7 +31,6 @@ const update = (id, params) => usersRepo.update(id, params);
 /**
  * Removing a user from the database
  * @param {string} id The id user
- * @returns {Promise<object>} return remove user
  */
 const remove = (id) => usersRepo.remove(id);
 

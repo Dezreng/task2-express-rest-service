@@ -50,7 +50,7 @@ const getAllTask = (tableName, idBoard) => {
  * Request for one entity from the database
  * @param {string} tableName The name table database
  * @param {string} id The id entity
- * @returns {object} return entity
+ * @returns {object | undefined} return entity
  */
 const get = (tableName, id) => {
 	const entitie = db[tableName].find(entity => entity.id === id);
@@ -62,7 +62,7 @@ const get = (tableName, id) => {
  * @param {string} tableName The name table database
  * @param {string} idTask The id task
  * @param {string} idBoard The id board
- * @returns {object} return task 
+ * @returns {object | undefined} return task 
  */
 const getTask = (tableName, idTask, idBoard) => {
 	const entitie = db[tableName].find(task => task.id === idTask && task.boardId === idBoard);
@@ -73,7 +73,6 @@ const getTask = (tableName, idTask, idBoard) => {
  * Removing an entity from the base
  * @param {string} tableName The name table database
  * @param {stirng} id The id entity
- * @returns {object} return delete entity
  */
 const remove = ( tableName, id ) => {
 	const entity = get(tableName, id)
@@ -82,8 +81,6 @@ const remove = ( tableName, id ) => {
 		db[`fix${tableName}Structure`](entity);
 		db[tableName] = db[tableName].filter(user => user !== entity);
 	}
-
-	return entity;
 };
 
 /**
@@ -91,14 +88,11 @@ const remove = ( tableName, id ) => {
  * @param {string} tableName The name table database
  * @param {string} idTask The id task
  * @param {string} idBoard The id board
- * @returns {object} return delete Entity
  */
 const removeTask = ( tableName, idTask, idBoard ) => {
 	const entity = getTask(tableName, idTask, idBoard);
 
 	db[tableName] = db[tableName].filter(task => task !== entity);
-
-	return entity;
 };
 
 /**
@@ -124,7 +118,7 @@ const update = async (tableName, id, params) => {
 	const oldEntity = get(tableName, id);
 
 	if (oldEntity) {
-		Object.assign(db[tableName][db[tableName].indexOf(oldEntity)], {...params})
+		Object.assign(db[tableName][db[tableName].indexOf(oldEntity)], params)
 	}
 
 	return get(tableName, id);
@@ -142,7 +136,7 @@ const updateTask = async (tableName, idTask, idBoard, params) => {
 	const oldEntity = getTask(tableName, idTask, idBoard);
 
 	if (oldEntity) {
-		Object.assign(db[tableName][db[tableName].indexOf(oldEntity)], {...params})
+		Object.assign(db[tableName][db[tableName].indexOf(oldEntity)], params)
 	}
 
 	return getTask(tableName, idTask, idBoard);
