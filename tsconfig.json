@@ -19,7 +19,8 @@
     "emitDecoratorMetadata": true,
     "skipLibCheck": true,
 		"noImplicitAny": true,
-		"strictNullChecks": false
+		"strictNullChecks": false,
+		"forceConsistentCasingInFileNames": true
   },
   "exclude": [
     "node_modules/"
