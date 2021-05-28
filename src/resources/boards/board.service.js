@@ -9,7 +9,7 @@ const getAll = (idBoard) => boardsRepo.getAll(idBoard);
 /**
  * Return board in the database
  * @param {string} id The id board
- * @returns {Promise<object>} return one board
+ * @returns {Promise<object> | Promise<undefined>} return one board
  */
 const get = (id) => boardsRepo.get(id);
 
@@ -31,7 +31,6 @@ const update = (id, params) => boardsRepo.update(id, params);
 /**
  * Removing a board from the database
  * @param {string} id The id board
- * @returns {Promise<object>} return delete board
  */
 const remove = (id) => boardsRepo.remove(id);
 

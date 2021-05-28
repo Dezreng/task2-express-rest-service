@@ -11,7 +11,7 @@ const getAllTask = (id) => tasksRepo.getAllTask(id);
  * Return task in the database
  * @param {string} idTask  The id task
  * @param {string} idBoard The id board
- * @returns {Promise<object>} return one task for board
+ * @returns {Promise<object> | Promise<undefined>} return one task for board
  */
 const getTask = (idTask, idBoard) => tasksRepo.getTask(idTask, idBoard);
 
@@ -28,7 +28,7 @@ const add = (reqBody, reqParams) => tasksRepo.add(reqBody, reqParams);
  * @param {string} idTask The id task
  * @param {string} idBoard The id board
  * @param {object} params return update task for board
- * @returns {Promise<object>}
+ * @returns {Promise<object>} return update Task
  */
 const updateTask = (idTask, idBoard, params) => tasksRepo.updateTask(idTask, idBoard, params);
 
@@ -36,7 +36,6 @@ const updateTask = (idTask, idBoard, params) => tasksRepo.updateTask(idTask, idB
  * Removing a task from the database
  * @param {string} idTask The id task
  * @param {string} idBoard The id board
- * @returns {Promise<object>} return remove task
  */
 const removeTask = (idTask, idBoard) => tasksRepo.removeTask(idTask, idBoard);
 

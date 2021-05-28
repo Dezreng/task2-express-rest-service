@@ -16,7 +16,7 @@ const getAllTask = async (id) => DB.getAll(TABLE_NAME, id);
  * @async
  * @param {string} idTask The id task
  * @param {string} idBoard The id board
- * @returns {Promise<object>} return one task for board
+ * @returns {Promise<object> | Promise<undefined>} return one task for board
  */
 const getTask = async (idTask, idBoard) => DB.getTask(TABLE_NAME, idTask, idBoard);
 
@@ -27,18 +27,8 @@ const getTask = async (idTask, idBoard) => DB.getTask(TABLE_NAME, idTask, idBoar
  * @param {object} reqParams The params id board
  * @returns {Promise<object>} return new Task
  */
-const add = async (reqBody, reqParams) => {
-	const { boardIdParam } = reqParams;
-	const { title, order, description, userId, boardId, columnId } = reqBody;
-	const taskObj = {
-		'title': title,
-		'order': order,
-		'description': description,
-		'userId': userId,
-		'boardId' : boardId || boardIdParam,
-		'columnId': columnId
-	}
-	const user = new Task(taskObj);
+const add = async (reqBody, boardId) => {
+	const user = new Task({...reqBody, boardId});
 	return DB.add(TABLE_NAME, user);
 }
 
@@ -57,7 +47,6 @@ const updateTask = async (idTask, idBoard, params) => DB.updateTask(TABLE_NAME, 
  * @async
  * @param {string} idTask The id task
  * @param {string} idBoard The id board
- * @returns {Promise<object>} return remove task for board
  */
 const removeTask = async (idTask, idBoard) => DB.removeTask(TABLE_NAME, idTask, idBoard);
 
