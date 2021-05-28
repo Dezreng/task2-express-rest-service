@@ -28,18 +28,8 @@ const getTask = async (idTask: string, idBoard: string) => DB.getTask(TABLE_NAME
  * @param {object} reqParams The params id board
  * @returns {Promise<object>} return new Task
  */
-const add = async (reqBody: TypeTaskAdd, reqParams: any) => {
-	const { boardIdParam } = reqParams;
-	const { title, order, description, userId, columnId } = reqBody;
-	const taskObj = {
-		'title': title,
-		'order': order,
-		'description': description,
-		'userId': userId,
-		'boardId' : boardIdParam,
-		'columnId': columnId
-	}
-	const user = new Task(taskObj);
+const add = async (reqBody: TypeTaskAdd, boardId: string) => {
+	const user = new Task({...reqBody, boardId});
 	return DB.addEntity(TABLE_NAME, user);
 }
 

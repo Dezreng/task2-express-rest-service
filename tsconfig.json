@@ -18,14 +18,11 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "skipLibCheck": true,
-    // "forceConsistentCasingInFileNames": true,
 		"noImplicitAny": true,
 		"strictNullChecks": false
   },
   "exclude": [
     "node_modules/"
   ],
-  "include": [
-    "./src/**/*.ts"
-, "src/bd/inMemoryRepositoryDB.js"  ]
+  "include": ["./src/**/*.ts"]
 }

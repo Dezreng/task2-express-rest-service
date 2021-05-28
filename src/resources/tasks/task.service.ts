@@ -22,7 +22,7 @@ const getTask = (idTask: string, idBoard: string) => tasksRepo.getTask(idTask, i
  * @param {object} reqParams The params for create
  * @returns {Promise<object>} return new Task
  */
-const add = (reqBody: TypeTaskAdd, reqParams: any) => tasksRepo.add(reqBody, reqParams);
+const add = (reqBody: TypeTaskAdd, boardId: string) => tasksRepo.add(reqBody, boardId);
 
 /**
  * Updating a task in the database
