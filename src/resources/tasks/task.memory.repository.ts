@@ -17,7 +17,7 @@ const getAllTask = async (id: string) => DB.getAllTask(TABLE_NAME, id);
  * @async
  * @param {string} idTask The id task
  * @param {string} idBoard The id board
- * @returns {Promise<object>} return one task for board
+ * @returns {Promise<object> | Promise<undefined>} return one task for board
  */
 const getTask = async (idTask: string, idBoard: string) => DB.getTask(TABLE_NAME, idTask, idBoard);
 
@@ -48,7 +48,6 @@ const updateTask = async (idTask: string, idBoard: string, params: TypeTaskUpdat
  * @async
  * @param {string} idTask The id task
  * @param {string} idBoard The id board
- * @returns {Promise<object>} return remove task for board
  */
 const removeTask = async (idTask: string, idBoard: string) => DB.removeTask(TABLE_NAME, idTask, idBoard);
 

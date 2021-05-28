@@ -15,7 +15,7 @@ const getAll = async () => DB.getAllEntity(TABLE_NAME);
  * Return user in the database
  * @async
  * @param {string} id The id user
- * @returns {Promise<object>} return user
+ * @returns {Promise<object> | Promise<undefined>} return user
  */
 const get = async ( id: string ) => DB.getEntity(TABLE_NAME, id);
 
@@ -43,7 +43,6 @@ const update = async ( id: string, params: TypeUserUpdate ) => DB.updateEntity(T
  * Removing a user from the database
  * @async
  * @param {string} id The id user
- * @returns {Promise<object>} return remove user
  */
 const remove = async ( id: string ) => DB.removeEntity(TABLE_NAME, id);
 

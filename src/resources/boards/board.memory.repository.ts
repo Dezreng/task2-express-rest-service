@@ -15,7 +15,7 @@ const getAll = async () => DB.getAllEntity(TABLE_NAME);
  * Return board in the database
  * @async
  * @param {string} id The id board
- * @returns {Promise<object>} return one board
+ * @returns {Promise<object> | Promise<undefined>} return one board
  */
 const get = async (id: string) => DB.getEntity(TABLE_NAME, id);
 
@@ -43,7 +43,6 @@ const update = async (id: string, params: TypeBoardUpdate) => DB.updateEntity(TA
  * Removing a board from the database
  * @async
  * @param {string} id The id board
- * @returns {Promise<object>} return delete board
  */
 const remove = async (id: string) => DB.removeEntity(TABLE_NAME, id);
 

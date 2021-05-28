@@ -55,7 +55,7 @@ const getAllTask = (tableName: string, idBoard: string): Task[] => {
  * Request for one entity from the database
  * @param {string} tableName The name table database
  * @param {string} id The id entity
- * @returns {object} return entity
+ * @returns {object | undefined} return entity
  */
 const getEntity = (tableName: string, id: string): TypeEntity => {
 	const entitie = (db[tableName] as TypeArr).find((entity: TypeEntity) => entity.id === id);
@@ -67,7 +67,7 @@ const getEntity = (tableName: string, id: string): TypeEntity => {
  * @param {string} tableName The name table database
  * @param {string} idTask The id task
  * @param {string} idBoard The id board
- * @returns {object} return task 
+ * @returns {object | undefined} return task 
  */
 const getTask = (tableName: string, idTask: string, idBoard: string): Task => {
 	const entitie = (db[tableName] as Task[]).find(( task: Task ) => task.id === idTask && task.boardId === idBoard);
@@ -78,7 +78,6 @@ const getTask = (tableName: string, idTask: string, idBoard: string): Task => {
  * Removing an entity from the base
  * @param {string} tableName The name table database
  * @param {stirng} id The id entity
- * @returns {object} return delete entity
  */
 const removeEntity = ( tableName: string, id: string ): void => {
 	const entity = getEntity(tableName, id);
@@ -97,7 +96,6 @@ const removeEntity = ( tableName: string, id: string ): void => {
  * @param {string} tableName The name table database
  * @param {string} idTask The id task
  * @param {string} idBoard The id board
- * @returns {object} return delete TypeEntity
  */
 const removeTask = ( tableName: string, idTask: string, idBoard: string ): void => {
 	const entity = getTask(tableName, idTask, idBoard);
