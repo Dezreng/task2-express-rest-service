@@ -1,5 +1,6 @@
-const DB = require('../../bd/inMemoryRepositoryDB');
-const User = require('./user.model');
+import DB from '../../bd/inMemoryRepositoryDB';
+import User from './user.model';
+import { TypeUserAdd, TypeUserUpdate } from '../../common/interfacesAndTypeDB';
 
 const TABLE_NAME = 'Users';
 
@@ -8,15 +9,15 @@ const TABLE_NAME = 'Users';
  * @async
  * @returns {Promise<object>} return all users
  */
-const getAll = async () => DB.getAll(TABLE_NAME);
+const getAll = async () => DB.getAllEntity(TABLE_NAME);
 
 /**
  * Return user in the database
  * @async
  * @param {string} id The id user
- * @returns {Promise<object>} return user
+ * @returns {Promise<object> | Promise<undefined>} return user
  */
-const get = async (id) => DB.get(TABLE_NAME, id);
+const get = async ( id: string ) => DB.getEntity(TABLE_NAME, id);
 
 /**
  * Adding a user to the database
@@ -24,9 +25,9 @@ const get = async (id) => DB.get(TABLE_NAME, id);
  * @param {object} reqBody The params for create user
  * @returns {Promise<object>} return new User
  */
-const add = async (reqBody) => {
+const add = async ( reqBody: TypeUserAdd ) => {
 	const user = new User(reqBody);
-	return DB.add(TABLE_NAME, user);
+	return DB.addEntity(TABLE_NAME, user);
 };
 
 /**
@@ -36,14 +37,13 @@ const add = async (reqBody) => {
  * @param {object} params The params for update user
  * @returns {Promise<object>} return update user
  */
-const update = async (id, params) => DB.update(TABLE_NAME, id, params);
+const update = async ( id: string, params: TypeUserUpdate ) => DB.updateEntity(TABLE_NAME, id, params);
 
 /**
  * Removing a user from the database
  * @async
  * @param {string} id The id user
- * @returns {Promise<object>} return remove user
  */
-const remove = async (id) => DB.remove(TABLE_NAME, id);
+const remove = async ( id: string ) => DB.removeEntity(TABLE_NAME, id);
 
-module.exports = { getAll, get, add, update, remove };
+export default { getAll, get, add, update, remove };

@@ -1,8 +1,14 @@
-const { v4: uuidv4 } = require('uuid');
+import { v4 as uuidv4 } from 'uuid'
 
 /** Class representing a Task */
-class Task {
-
+export default class Task {
+	public id: string;
+	public title: string;
+	public order: number;
+	public description: string;
+	public userId: string | null;
+	public boardId: string | null;	
+	public columnId: string | null;	
 	/**
 	 * Create a Task
 	 * @param {object} param0 The object params for create Task
@@ -15,7 +21,13 @@ class Task {
 		userId = null,
 		boardId = null,
 		columnId = null
-  } = {}) {
+  }: { id?: string;
+		title?: string;
+		order?: number;
+		description?: string;
+		userId?: string | null;
+		boardId?: string | null;
+		columnId?: string | null} = {}) {
     this.id = id;
     this.title= title;
     this.order = order;
@@ -30,10 +42,8 @@ class Task {
 	 * @param {object} task The entity Task
 	 * @returns {object} return the required fields
 	 */
-  static toResponse(task) {
+  static toResponse(task: Task) {
     const { id, title, order, description, userId, boardId, columnId } = task;
     return { id, title, order, description, userId, boardId, columnId };
   }
 }
-
-module.exports = Task;

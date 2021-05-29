@@ -1,5 +1,6 @@
-const DB = require('../../bd/inMemoryRepositoryDB');
-const Board = require('./board.model');
+import DB from '../../bd/inMemoryRepositoryDB';
+import { TypeBoardAdd, TypeBoardUpdate } from '../../common/interfacesAndTypeDB';
+import Board from './board.model';
 
 const TABLE_NAME = 'Boards'
 
@@ -8,15 +9,15 @@ const TABLE_NAME = 'Boards'
  * @async
  * @returns {Promise<object>} return all boards
  */
-const getAll = async () => DB.getAllTask(TABLE_NAME);
+const getAll = async () => DB.getAllEntity(TABLE_NAME);
 
 /**
  * Return board in the database
  * @async
  * @param {string} id The id board
- * @returns {Promise<object>} return one board
+ * @returns {Promise<object> | Promise<undefined>} return one board
  */
-const get = async (id) => DB.get(TABLE_NAME, id);
+const get = async (id: string) => DB.getEntity(TABLE_NAME, id);
 
 /**
  * Adding a board to the database
@@ -24,9 +25,9 @@ const get = async (id) => DB.get(TABLE_NAME, id);
  * @param {object} reqBody The params for new Board
  * @returns {Promise<object>} return new Board
  */
-const add = async (reqBody) => {
+const add = async (reqBody: TypeBoardAdd) => {
 	const board = new Board(reqBody);
-	return DB.add(TABLE_NAME, board);
+	return DB.addEntity(TABLE_NAME, board);
 };
 
 /**
@@ -36,14 +37,13 @@ const add = async (reqBody) => {
  * @param {object} params The params for update board
  * @returns {Promise<object>} return update board
  */
-const update = async (id, params) => DB.update(TABLE_NAME, id, params);
+const update = async (id: string, params: TypeBoardUpdate) => DB.updateEntity(TABLE_NAME, id, params);
 
 /**
  * Removing a board from the database
  * @async
  * @param {string} id The id board
- * @returns {Promise<object>} return delete board
  */
-const remove = async (id) => DB.remove(TABLE_NAME, id);
+const remove = async (id: string) => DB.removeEntity(TABLE_NAME, id);
 
-module.exports = { getAll, get, add, update, remove };
+export default { getAll, get, add, update, remove };

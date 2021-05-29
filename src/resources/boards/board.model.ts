@@ -1,20 +1,23 @@
-const { v4: uuidv4 } = require('uuid');
-const Colum = require('./board.colum');
+import { v4 as uuidv4 } from 'uuid'
+import Column from './board.column';
 
 /** Class representing a Board */
-class Board {
+export default class Board {
+	public id: string;
+	public title: string;
+	public columns: Column[] | null;
 	/**
 	 * Create a Board
 	 * @param {object} param0 The object params for create Board
 	 */
   constructor({
     id = uuidv4(),
-    title = 'BOARD',
+    title = 'Board',
 		columns = null,
-  } = {}) {
+  }: {id?: string; title?: string; columns?: {title: string; order:number}[] | null} = {}) {
     this.id = id;
     this.title = title;
-		this.columns = columns !== null ? columns.map(col => new Colum(col)) : null;
+		this.columns = columns.length !== null ? columns.map((col: {title: string, order: number}) => new Column(col)) : [];
   }
 
 	/**
@@ -22,10 +25,8 @@ class Board {
 	 * @param {object} board The entity Board
 	 * @returns {object} return the required fields
 	 */
-  static toResponse(board) {
+  static toResponse(board: Board) {
     const { id, title, columns } = board;
     return { id, title, columns };
   }
 }
-
-module.exports = Board;
