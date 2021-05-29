@@ -29,7 +29,7 @@ const add = (reqBody: TypeTaskAdd, boardId: string) => tasksRepo.add(reqBody, bo
  * @param {string} idTask The id task
  * @param {string} idBoard The id board
  * @param {object} params return update task for board
- * @returns {Promise<object>}
+ * @returns {Promise<object>} return update Task
  */
 const updateTask = (idTask: string, idBoard: string, params: TypeTaskUpdate) => tasksRepo.updateTask(idTask, idBoard, params);
 
