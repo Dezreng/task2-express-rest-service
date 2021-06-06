@@ -1,6 +1,7 @@
 import DB from '../../bd/inMemoryRepositoryDB';
 import { TypeBoardAdd, TypeBoardUpdate } from '../../common/interfacesAndTypeDB';
 import Board from './board.model';
+import ErrorNotFound from '../../error/errorNotFound';
 
 const TABLE_NAME = 'Boards'
 
@@ -17,7 +18,14 @@ const getAll = async () => DB.getAllEntity(TABLE_NAME);
  * @param {string} id The id board
  * @returns {Promise<object> | Promise<undefined>} return one board
  */
-const get = async (id: string) => DB.getEntity(TABLE_NAME, id);
+const get = async (id: string) => {
+	const board = DB.getEntity(TABLE_NAME, id)
+
+	if(!board){
+		throw new ErrorNotFound("Not Found!");
+	}
+	return board;
+};
 
 /**
  * Adding a board to the database
