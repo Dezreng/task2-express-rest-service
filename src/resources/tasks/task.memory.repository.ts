@@ -1,6 +1,7 @@
 import DB from '../../bd/inMemoryRepositoryDB';
 import Task from './task.model';
 import { TypeTaskAdd, TypeTaskUpdate } from '../../common/interfacesAndTypeDB';
+import ErrorNotFound from '../../error/errorNotFound';
 
 const TABLE_NAME = 'Tasks'
 
@@ -19,7 +20,15 @@ const getAllTask = async (id: string) => DB.getAllTask(TABLE_NAME, id);
  * @param {string} idBoard The id board
  * @returns {Promise<object> | Promise<undefined>} return one task for board
  */
-const getTask = async (idTask: string, idBoard: string) => DB.getTask(TABLE_NAME, idTask, idBoard);
+const getTask = async (idTask: string, idBoard: string) => { 
+	const task = DB.getTask(TABLE_NAME, idTask, idBoard);
+
+	if(!task){
+		throw new ErrorNotFound("Not Found!");
+	}
+
+	return task;
+};
 
 /**
  * Adding a task to the database
