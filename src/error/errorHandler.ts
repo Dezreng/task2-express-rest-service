@@ -6,7 +6,7 @@ interface errHanler extends Error {
   message: string;
   stack?: string;
 	status?: number;
-};
+}
 
 const errorHandler = (err: errHanler, req: Request, res: Response, _next: NextFunction) => {
 	logger.error(`method: ${req.method}, URL: ${decodeURI(
