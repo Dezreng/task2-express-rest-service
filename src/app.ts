@@ -5,6 +5,8 @@ import YAML from 'yamljs';
 import userRouter from './resources/users/user.router';
 import boardRouter from './resources/boards/board.router';
 import taskRouter from './resources/tasks/task.router';
+import errorHandler from './error/errorHandler';
+import ErrorNotFound from './error/errorNotFound';
 
 const app = express();
 const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
@@ -26,5 +28,13 @@ app.use('/users', userRouter);
 app.use('/boards', boardRouter);
 
 app.use('/boards/:boardIdParam/tasks', taskRouter);
+
+app.use((_req, _res, next) => {
+  const error = new ErrorNotFound("This request does not exist!");
+  next(error);
+});
+
+// error handler middleware
+app.use(errorHandler);
 
 export default app;
