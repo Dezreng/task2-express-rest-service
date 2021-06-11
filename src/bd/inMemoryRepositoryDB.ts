@@ -8,10 +8,6 @@ const db: Idb = {
 	Boards: [],
 	Tasks: [],
 
-	/**
-	 * Updating tasks when deleting a user
-	 * @param {object} user The object class User
-	 */
 	fixUsersStructure: ( user: User ) => {
 		if(user){
 			db.Tasks.map(task => {
@@ -22,10 +18,6 @@ const db: Idb = {
 		}
 	},
 
-	/**
-	 * Updating tasks when deleting a board
-	 * @param {object} board The object class Board
-	 */
 	fixBoardsStructure: ( board: Board ) => {
 		if(board){
 			db.Tasks = db.Tasks.filter(task => task.boardId !== board.id )
@@ -33,52 +25,23 @@ const db: Idb = {
 	}
 };
 
-/**
- * Requesting all entities from the database
- * @param {stirng} tableName The name table database
- * @returns {Array} return array entity
- */
 const getAllEntity = ( tableName: string ): TypeArr => (db[tableName] as TypeArr);
 
-/**
- * Requesting all tasks from the database
- * @param {string} tableName The name table database
- * @param {string} idBoard The id board
- * @returns {Array} return array tasks
- */
 const getAllTask = (tableName: string, idBoard: string): Task[] => {
 	const getAllTaskBoard = (db[tableName] as Task[]).filter(( task: Task ) => task.boardId === idBoard);
 	return getAllTaskBoard;
 };
 
-/**
- * Request for one entity from the database
- * @param {string} tableName The name table database
- * @param {string} id The id entity
- * @returns {object | undefined} return entity
- */
 const getEntity = (tableName: string, id: string): TypeEntity => {
 	const entitie = (db[tableName] as TypeArr).find((entity: TypeEntity) => entity.id === id);
 	return entitie;
 };
 
-/**
- * Request for task from the database
- * @param {string} tableName The name table database
- * @param {string} idTask The id task
- * @param {string} idBoard The id board
- * @returns {object | undefined} return task 
- */
 const getTask = (tableName: string, idTask: string, idBoard: string): Task => {
 	const entitie = (db[tableName] as Task[]).find(( task: Task ) => task.id === idTask && task.boardId === idBoard);
 	return entitie;
 }
 
-/**
- * Removing an entity from the base
- * @param {string} tableName The name table database
- * @param {stirng} id The id entity
- */
 const removeEntity = ( tableName: string, id: string ): void => {
 	const entity = getEntity(tableName, id);
 
@@ -91,37 +54,18 @@ const removeEntity = ( tableName: string, id: string ): void => {
 	db[tableName] = (db[tableName] as TypeArr).filter(( entityT: TypeEntity ) => entityT !== entity);
 };
 
-/**
- * Removing an task from the base
- * @param {string} tableName The name table database
- * @param {string} idTask The id task
- * @param {string} idBoard The id board
- */
 const removeTask = ( tableName: string, idTask: string, idBoard: string ): void => {
 	const entity = getTask(tableName, idTask, idBoard);
 
 	db[tableName] = (db[tableName] as Task[]).filter(( task: Task ) => task !== entity);
 };
 
-/**
- * Adding an entity to databases
- * @param {stirng} tableName The name table database
- * @param {object} obj The new TypeEntity
- * @returns {object} return new TypeEntity
- */
 const addEntity = (tableName: string, obj: TypeEntity | Task): TypeEntity | Task => {
 	(db[tableName] as Array<User|Board|Task>).push(obj);
 
-	return getEntity(tableName, obj.id);
+	return tableName === "Tasks" ? getTask(tableName, obj.id, (obj as Task).boardId) : getEntity(tableName, obj.id);
 };
 
-/**
- * Updating an entity in the database
- * @param {string} tableName The name table database
- * @param {string} id The id entity
- * @param {object} params The parametrs for chang entity
- * @returns {object} return update entity
- */
 const updateEntity = (tableName: string, id: string, params: TypeUserUpdate | TypeBoardUpdate): TypeEntity => {
 	const oldEntity = getEntity(tableName, id);
 
@@ -132,14 +76,6 @@ const updateEntity = (tableName: string, id: string, params: TypeUserUpdate | Ty
 	return getEntity(tableName, id);
 };
 
-/**
- * Updating an task in the database
- * @param {string} tableName The name table database
- * @param {string} idTask The id task
- * @param {string} idBoard The id board
- * @param {object} params The parametrs for chang task
- * @returns {object} return update task
- */
 const updateTask = (tableName: string, idTask: string, idBoard: string, params: TypeTaskUpdate): Task => {
 	const oldEntity = getTask(tableName, idTask, idBoard);
 
