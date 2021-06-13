@@ -9,13 +9,10 @@ router.route('/').get(async (_req: Request, res: Response): Promise<void> => {
   res.status(200).json((board as Board[]).map(Board.toResponse));
 });
 
-router.route('/:id').get(async (req: Request, res: Response): Promise<void> => {
-  const board = await boardService.get(req.params['id']);
-	if(!board){
-		res.status(404).json();
-	} else {
+router.route('/:id').get(async (req: Request, res: Response, next): Promise<void> => {
+  await boardService.get(req.params['id']).then(board => {
 		res.status(200).json(Board.toResponse((board as Board)));
-	}
+	}).catch(next);
 });
 
 router.route('/').post(async (req: Request, res: Response): Promise<void> => {
