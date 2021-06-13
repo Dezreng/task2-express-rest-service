@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    networks:
+      - custom-net
+    ports:
+      - ${PORT}:${PORT}
+    depends_on:
+      - postgres
+    restart: always
+    volumes:
+      - /app/node_modules
+      - .:/app
+
+  postgres:
+    image: postgres:13.3-alpine
+    networks:
+      - custom-net
+    restart: always
+    build: ./database
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    volumes:
+      - todo-mypostgressql-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+
+networks:
+  custom-net:
+    driver: bridge
+
+volumes:
+  todo-mypostgressql-data:
