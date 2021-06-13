@@ -69,7 +69,11 @@ psql -h postgres -p 5432 -d db -U user -W
 ```
 \l
 ```
+Check image for vulnerabilities
 
+```
+docker scan dezreng/rest-api
+```
 ## Testing
 
 After application running open new terminal and enter:
