@@ -23,15 +23,13 @@ services:
     ports:
       - ${POSTGRES_PORT}:${POSTGRES_PORT}
     volumes:
-      - todo-mypostgressql-data:/var/lib/postgresql/data
+      - ./db:${PGDATA}
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
+      PGDATA: ${PGDATA}
 
 networks:
   custom-net:
     driver: bridge
-
-volumes:
-  todo-mypostgressql-data:
