@@ -1,4 +1,5 @@
-import User from "../resources/users/user.model";
+// import User from "../resources/users/user.model";
+import User from "../entity/user.model"
 import Task from "../resources/tasks/task.model";
 import Board from "../resources/boards/board.model";
 

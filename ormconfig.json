@@ -1,5 +1,4 @@
 {
-	"name": "default",
 	"type": "postgres",
 	"host": "localhost",
 	"port": 5433,
@@ -11,15 +10,7 @@
 	"entities": [
 		"src/entity/**/*.ts"
 	],
-	"subscribers": [
-		"src/subscriber/**/*.ts"
-	],
 	"migrations": [
 		"src/migration/**/*.ts"
-	],
-	"cli": {
-		"entitiesDir": "src/entity",
-		"migrationsDir": "src/migration",
-		"subscribersDir": "src/subscriber"
-	}
+	]
 }
