@@ -5,11 +5,14 @@ import app from './app';
 import logger from './logger/moduleLogger';
 
 
-createConnection().then(connection => {
-	console.log(connection);
-	
-	app.listen(config.PORT, () =>
-  console.log(`App is running on http://localhost:${config.PORT}`)
-);
+createConnection().then( async connection => {
+	if ( connection.isConnected ) {
+		console.log("DataBase is connected");
 
+		app.listen(config.PORT, () =>
+  	console.log(`App is running on http://localhost:${config.PORT}`)
+		);
+	} else {
+		connection.connect();
+	}
 }).catch((error: Error) => logger.error(`Error: ${error.message}`, error));
