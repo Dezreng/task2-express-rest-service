@@ -1,14 +1,15 @@
 import usersRepo from './user.memory.repository';
-import { TypeUserAdd, TypeUserUpdate } from '../../common/interfacesAndTypeDB';
+import { UserDTO } from '../../common/interfacesAndTypeDB';
+import User from '../../entity/user.model';
 
-const getAll = () => usersRepo.getAllUsers();
+const getAllUsers = () => usersRepo.getAllUsers();
 
-const get = ( id: string ) => usersRepo.getUserId(id);
+const getUserId = ( id: string ) => usersRepo.getUserId(id);
 
-const add = (reqBody: TypeUserAdd) => usersRepo.addUser(reqBody);
+const addUser = (reqBody: User ) => usersRepo.addUser(reqBody);
 
-const update = ( id: string, params: TypeUserUpdate ) => usersRepo.updateUser(id, params);
+const updateUser = ( id: string, params: UserDTO ) => usersRepo.updateUser(id, params);
 
-const remove = ( id: string ) => usersRepo.removeUser(id);
+const removeUser = ( id: string ) => usersRepo.removeUser(id);
 
-export default { getAll, get, add, update, remove };
+export default { getAllUsers, getUserId, addUser, updateUser, removeUser };

@@ -1,14 +1,15 @@
-import { TypeBoardAdd, TypeBoardUpdate } from '../../common/interfacesAndTypeDB';
+import { BoardDTO  } from '../../common/interfacesAndTypeDB';
+import Board from '../../entity/board.model';
 import boardsRepo from './board.memory.repository';
 
-const getAll = () => boardsRepo.getAll();
+const getAllBoards = () => boardsRepo.getAllBoards();
 
-const get = (id: string) => boardsRepo.get(id);
+const getBoard = (id: string) => boardsRepo.getBoard(id);
 
-const add = (reqBody: TypeBoardAdd) => boardsRepo.add(reqBody);
+const addBoard = (reqBody: Board) => boardsRepo.addBoard(reqBody);
 
-const update = (id: string, params: TypeBoardUpdate) => boardsRepo.update(id, params);
+const updateBoard = (id: string, params: BoardDTO ) => boardsRepo.updateBoard(id, params);
 
-const remove = (id: string) => boardsRepo.remove(id);
+const removeBoard = (id: string) => boardsRepo.removeBoard(id);
 
-export default { getAll, get, add, update, remove };
+export default { getAllBoards, getBoard, addBoard, updateBoard, removeBoard };
