@@ -1,14 +1,16 @@
-import DB from '../../bd/inMemoryRepositoryDB';
-import { TypeBoardAdd, TypeBoardUpdate } from '../../common/interfacesAndTypeDB';
-import Board from './board.model';
+import { BoardDTO } from '../../common/interfacesAndTypeDB';
+import Board from '../../entity/board.model';
+import Task from '../../entity/task.model';
+import Columns from '../../entity/column.model';
 import ErrorNotFound from '../../error/errorNotFound';
 
-const TABLE_NAME = 'Boards'
+const getAllBoards = async () => {
+	const boards = await Board.find({ relations: ["columns"] });
+	return boards;
+}
 
-const getAll = async () => DB.getAllEntity(TABLE_NAME);
-
-const get = async (id: string) => {
-	const board = DB.getEntity(TABLE_NAME, id)
+const getBoard = async (id: string) => {
+	const board = await Board.findOne(id, { relations: ["columns"] })
 
 	if(!board){
 		throw new ErrorNotFound("Not Found!");
@@ -16,13 +18,26 @@ const get = async (id: string) => {
 	return board;
 };
 
-const add = async (reqBody: TypeBoardAdd) => {
-	const board = new Board(reqBody);
-	return DB.addEntity(TABLE_NAME, board);
+const addBoard = async (reqBody: Board) => {
+	const board = Board.create(reqBody);
+	const columns = Columns.create(reqBody.columns);
+	await Columns.save(columns);
+	board.columns = columns;
+	const res = await Board.save(board);
+	return res
 };
 
-const update = async (id: string, params: TypeBoardUpdate) => DB.updateEntity(TABLE_NAME, id, params);
+const updateBoard = async (id: string, params: BoardDTO) => {
+	const upBoard = await getBoard(id);
+	Board.merge(upBoard, params);
+	await Board.save(upBoard);
+	const res = await getBoard(id);
+	return res;
+};
 
-const remove = async (id: string) => DB.removeEntity(TABLE_NAME, id);
+const removeBoard = async (id: string) => {
+	await Task.fixBoardsStructure(await getBoard(id));
+	await Board.delete(id);
+};
 
-export default { getAll, get, add, update, remove };
+export default { getAllBoards, getBoard, addBoard, updateBoard, removeBoard };

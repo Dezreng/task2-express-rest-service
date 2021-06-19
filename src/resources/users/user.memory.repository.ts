@@ -1,9 +1,7 @@
-// import DB from '../../bd/inMemoryRepositoryDB';
-// import User from './user.model';
 import User from '../../entity/user.model'
-import { TypeUserAdd, TypeUserUpdate } from '../../common/interfacesAndTypeDB';
+import Task from '../../entity/task.model'
+import { UserDTO } from '../../common/interfacesAndTypeDB';
 
-// const TABLE_NAME = 'Users';
 
 const getAllUsers = async () => {
 	const users = await User.find();
@@ -15,14 +13,13 @@ const getUserId = async ( id: string ) => {
 	return user;
 };
 
-const addUser = async ( reqBody: TypeUserAdd ) => {
+const addUser = async ( reqBody: User ) => {
 	const newUser = User.create(reqBody);
-	await User.save(newUser);
-	const res = await getUserId(newUser.id);
+	const res = await User.save(newUser);
 	return res;
 };
 
-const updateUser = async ( id: string, params: TypeUserUpdate ) => {
+const updateUser = async ( id: string, params: UserDTO ) => {
 	const user = await getUserId(id);
 	User.merge(user, params);
 	const res = await User.save(user);
@@ -30,8 +27,8 @@ const updateUser = async ( id: string, params: TypeUserUpdate ) => {
 };
 
 const removeUser = async ( id: string ) => {
-	const res = await User.delete(id);
-	return res;
+	await Task.fixUsersStructure(await getUserId(id));
+	await User.delete(id);
 };
 
 export default { getAllUsers, getUserId, addUser, updateUser, removeUser };
