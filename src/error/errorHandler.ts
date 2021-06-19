@@ -1,14 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import logger from '../logger/moduleLogger';
+import { errHandler } from "../common/interfacesAndTypeDB"
 
-interface errHanler extends Error {
-	name: string;
-  message: string;
-  stack?: string;
-	status?: number;
-}
-
-const errorHandler = (err: errHanler, req: Request, res: Response, _next: NextFunction) => {
+const errorHandler = (err: errHandler, req: Request, res: Response, _next: NextFunction) => {
 	logger.error(`method: ${req.method}, URL: ${decodeURI(
         req.url
       )}, query parameters: ${JSON.stringify(
