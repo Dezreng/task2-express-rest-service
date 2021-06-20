@@ -7,10 +7,10 @@ export default class Columns extends BaseEntity {
 	@PrimaryGeneratedColumn('uuid')
 	id!: string;
 
-	@Column()
+	@Column({length: 100})
 	title: string;
 
-	@Column()
+	@Column('integer')
 	order!: number;
 
 	@ManyToOne(() => Board, board => board.columns, {

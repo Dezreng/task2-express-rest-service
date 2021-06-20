@@ -8,13 +8,13 @@ export default class Task extends BaseEntity {
 	@PrimaryGeneratedColumn("uuid")
 	id!: string;
 
-	@Column()
+	@Column({length: 50})
 	title!: string;
 
-	@Column()
+	@Column('integer')
 	order!: number
 
-	@Column()
+	@Column({length: 200})
 	description!: string;
 
 	@Column({ nullable: true, default: null })

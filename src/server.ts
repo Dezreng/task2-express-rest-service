@@ -3,9 +3,10 @@ import { createConnection } from "typeorm";
 import config  from './common/config';
 import app from './app';
 import logger from './logger/moduleLogger';
+import configDB from './common/ormconfig';
 
 
-createConnection().then( async connection => {
+createConnection(configDB).then( async connection => {
 	if ( connection.isConnected ) {
 		console.log("DataBase is connected");
 
