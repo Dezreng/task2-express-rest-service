@@ -27,6 +27,53 @@ After starting the app on port (4000 as default) you can open
 in your browser OpenAPI documentation by typing http://localhost:4000/doc/.
 For more information about OpenAPI/Swagger please visit https://swagger.io/.
 
+## Running application using Docker
+
+To start the postgres containers and the application, use the command
+
+```
+docker-compose up -d
+```
+An alternative pull docker image from [docker hub repository](https://hub.docker.com/r/dezreng/rest-api)
+
+```
+docker pull dezreng/rest-api:latest
+```
+
+```
+docker run -p 4000:4000 rest-api
+```
+
+.env example
+
+```
+NODE_ENV=development
+PORT=
+POSTGRES_PASSWORD=
+POSTGRES_DB=
+POSTGRES_USER=
+POSTGRES_PORT=
+```
+Go to the postgres container
+
+```
+docker exec -it ID_Container bash
+```
+
+Command to enter the database and display the databases
+
+```
+psql -h postgres -p 5432 -d db -U user -W
+```
+
+```
+\l
+```
+Check image for vulnerabilities
+
+```
+docker scan dezreng/rest-api
+```
 ## Testing
 
 After application running open new terminal and enter:

@@ -1,6 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
 
-/** Class representing a Task */
 export default class Task {
 	public id: string;
 	public title: string;
@@ -9,10 +8,7 @@ export default class Task {
 	public userId: string | null;
 	public boardId: string | null;	
 	public columnId: string | null;	
-	/**
-	 * Create a Task
-	 * @param {object} param0 The object params for create Task
-	 */
+
   constructor({
     id = uuidv4(),
     title = 'TITLE',
@@ -37,11 +33,6 @@ export default class Task {
 		this.columnId = columnId;
   }
 
-	/**
-	 * Transforming a task for a response
-	 * @param {object} task The entity Task
-	 * @returns {object} return the required fields
-	 */
   static toResponse(task: Task) {
     const { id, title, order, description, userId, boardId, columnId } = task;
     return { id, title, order, description, userId, boardId, columnId };
