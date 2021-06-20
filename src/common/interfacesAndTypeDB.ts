@@ -1,32 +1,18 @@
-import User from "../resources/users/user.model";
-import Task from "../resources/tasks/task.model";
-import Board from "../resources/boards/board.model";
+import User from "../entity/user.model"
+import Task from "../entity/task.model";
+import Board from "../entity/board.model";
 
-type TypeValueDB = Array<User|Board|Task> | ((user: User) => void) | ((board: Board) => void);
+export type UserDTO = Omit<User, 'id'>;
 
-export type TypeEntity = User | Board;
+export type TaskDTO = Omit<Task, 'id'>;
 
-export type TypeArr = Array<TypeEntity>;
+export type BoardDTO = Omit<Board, 'id'>;
 
-export type TypeBoardUpdate = { title?: string; columns?: { title?: string; order?: number} };
-
-export type TypeUserUpdate = { name?: string; login?: string; password?: string };
-
-export type TypeTaskUpdate = { title?: string; order?: number; description?: string; userId?: string | null; columnId?: string };
-
-export type TypeUserAdd = { id?: string; name: string; login: string; password: string };
-
-export type TypeTaskAdd = { id?: string; title: string; order?: number; description?: string; userId?: string | null; boardId: string; columnId?: string };
-
-export type TypeBoardAdd = { id?: string; title: string; columns?: { title: string; order: number}[] };
-
-export interface Idb {
-	[key: string]: TypeValueDB;
-	Users: User[];
-	Boards: Board[];
-	Tasks: Task[];
-	fixUsersStructure: (user: User) => void;
-	fixBoardsStructure: (board: Board) => void;
+export interface errHandler extends Error {
+	name: string;
+  message: string;
+  stack?: string;
+	status?: number;
 }
 
 

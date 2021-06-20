@@ -1,20 +1,34 @@
-import DB from '../../bd/inMemoryRepositoryDB';
-import User from './user.model';
-import { TypeUserAdd, TypeUserUpdate } from '../../common/interfacesAndTypeDB';
+import User from '../../entity/user.model'
+import Task from '../../entity/task.model'
+import { UserDTO } from '../../common/interfacesAndTypeDB';
 
-const TABLE_NAME = 'Users';
 
-const getAll = async () => DB.getAllEntity(TABLE_NAME);
-
-const get = async ( id: string ) => DB.getEntity(TABLE_NAME, id);
-
-const add = async ( reqBody: TypeUserAdd ) => {
-	const user = new User(reqBody);
-	return DB.addEntity(TABLE_NAME, user);
+const getAllUsers = async () => {
+	const users = await User.find();
+	return users;
 };
 
-const update = async ( id: string, params: TypeUserUpdate ) => DB.updateEntity(TABLE_NAME, id, params);
+const getUserId = async ( id: string ) => {
+	const user = await User.findOne(id);
+	return user;
+};
 
-const remove = async ( id: string ) => DB.removeEntity(TABLE_NAME, id);
+const addUser = async ( reqBody: User ) => {
+	const newUser = User.create(reqBody);
+	const res = await User.save(newUser);
+	return res;
+};
 
-export default { getAll, get, add, update, remove };
+const updateUser = async ( id: string, params: UserDTO ) => {
+	const user = await getUserId(id);
+	User.merge(user, params);
+	const res = await User.save(user);
+	return res;
+};
+
+const removeUser = async ( id: string ) => {
+	await Task.fixUsersStructure(await getUserId(id));
+	await User.delete(id);
+};
+
+export default { getAllUsers, getUserId, addUser, updateUser, removeUser };
