@@ -16,5 +16,4 @@ export default {
 	POSTGRES_USER: process.env["POSTGRES_USER"],
 	POSTGRES_PORT: process.env["POSTGRES_PORT"],
 	POSTGRES_HOST: process.env["POSTGRES_HOST"],
-	TYPE_DB: process.env["TYPE_DB"]
 };
