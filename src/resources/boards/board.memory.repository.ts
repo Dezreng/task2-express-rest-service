@@ -1,7 +1,6 @@
 import { BoardDTO } from '../../common/interfacesAndTypeDB';
 import Board from '../../entity/board.model';
 import Task from '../../entity/task.model';
-import Columns from '../../entity/column.model';
 import ErrorNotFound from '../../error/errorNotFound';
 
 const getAllBoards = async () => {
@@ -20,9 +19,6 @@ const getBoard = async (id: string) => {
 
 const addBoard = async (reqBody: Board) => {
 	const board = Board.create(reqBody);
-	const columns = Columns.create(reqBody.columns);
-	await Columns.save(columns);
-	board.columns = columns;
 	const res = await Board.save(board);
 	return res
 };

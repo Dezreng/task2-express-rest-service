@@ -12,7 +12,7 @@ export default class Board extends BaseEntity {
 	title: string;
 
 	@OneToMany(() => Columns, column => column.board, {
-		nullable: true
+		nullable: true, cascade: true
 	})
 	columns: Columns[];
 }
