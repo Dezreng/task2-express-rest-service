@@ -8,23 +8,23 @@ export default class Task extends BaseEntity {
 	@PrimaryGeneratedColumn("uuid")
 	id!: string;
 
-	@Column({length: 50})
-	title!: string;
+	@Column({ type: 'varchar', length: 50 })
+	title: string;
 
-	@Column('integer')
+	@Column('integer', { default: 0 })
 	order!: number
 
-	@Column({length: 200})
+	@Column({ type: 'varchar', length: 255, default: '' })
 	description!: string;
 
 	@Column({ nullable: true, default: null })
-	userId: string;
+	userId!: string;
 
 	@Column()
 	boardId: string;
 
 	@Column({ nullable: true, default: null })
-	columnId: string;
+	columnId!: string;
 
 	static async fixUsersStructure(user: User){
 		if(user){
