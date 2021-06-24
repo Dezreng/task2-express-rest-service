@@ -1,7 +1,7 @@
+import bcrypt from 'bcrypt';
 import User from '../../entity/user.model'
 import Task from '../../entity/task.model'
 import { UserDTO } from '../../common/interfacesAndTypeDB';
-
 
 const getAllUsers = async () => {
 	const users = await User.find();
@@ -14,7 +14,12 @@ const getUserId = async ( id: string ) => {
 };
 
 const addUser = async ( reqBody: User ) => {
-	const newUser = User.create(reqBody);
+	const params = {
+		name: reqBody.name,
+		login: reqBody.login,
+		password: await bcrypt.hash(reqBody.password, 10),
+	};
+	const newUser = User.create(params);
 	const res = await User.save(newUser);
 	return res;
 };
