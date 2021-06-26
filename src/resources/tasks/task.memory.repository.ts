@@ -1,14 +1,14 @@
-import DB from '../../bd/inMemoryRepositoryDB';
-import Task from './task.model';
-import { TypeTaskAdd, TypeTaskUpdate } from '../../common/interfacesAndTypeDB';
+import Task from '../../entity/task.model';
+import { TaskDTO } from '../../common/interfacesAndTypeDB';
 import ErrorNotFound from '../../error/errorNotFound';
 
-const TABLE_NAME = 'Tasks'
-
-const getAllTask = async (id: string) => DB.getAllTask(TABLE_NAME, id);
+const getAllTask = async (id: string) => {
+	const tasks = await Task.find({ boardId: id });
+	return tasks
+}
 
 const getTask = async (idTask: string, idBoard: string) => { 
-	const task = DB.getTask(TABLE_NAME, idTask, idBoard);
+	const task = await Task.findOne({ id: idTask, boardId: idBoard });
 
 	if(!task){
 		throw new ErrorNotFound("Not Found!");
@@ -17,13 +17,21 @@ const getTask = async (idTask: string, idBoard: string) => {
 	return task;
 };
 
-const add = async (reqBody: TypeTaskAdd, boardId: string) => {
-	const user = new Task({...reqBody, boardId});
-	return DB.addEntity(TABLE_NAME, user);
-}
+const addTask = async (reqBody: Task, boardId: string) => {
+	const newTask = Task.create({ ...reqBody, boardId });
+	const res = await Task.save(newTask);
+	return res;
+};
 
-const updateTask = async (idTask: string, idBoard: string, params: TypeTaskUpdate) => DB.updateTask(TABLE_NAME, idTask, idBoard, params);
+const updateTask = async (idTask: string, idBoard: string, params: TaskDTO) => {
+	const task = await getTask(idTask, idBoard);
+	Task.merge(task, params);
+	const res = await Task.save(task);
+	return res;
+};
 
-const removeTask = async (idTask: string, idBoard: string) => DB.removeTask(TABLE_NAME, idTask, idBoard);
+const removeTask = async (idTask: string, idBoard: string) => {
+	await Task.delete({ id: idTask, boardId: idBoard })
+};
 
-export default { getAllTask, getTask, add, updateTask, removeTask };
+export default { getAllTask, getTask, addTask, updateTask, removeTask };
