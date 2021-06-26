@@ -4,7 +4,7 @@ export default class ErrorLogin extends Error {
 	constructor (message: string) {
 		super(message);
 		this.status = 403;
-		this.name = "Unauthorized"
+		this.name = "ErrorLogin"
 	}
 
 }
