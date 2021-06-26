@@ -2,16 +2,19 @@ import Task from '../../entity/task.model';
 import { TaskDTO } from '../../common/interfacesAndTypeDB';
 import ErrorNotFound from '../../error/errorNotFound';
 
-const getAllTask = async (id: string) => {
-	const tasks = await Task.find({ boardId: id });
+const getAllTask = async (boardId: string) => {
+	const tasks = await Task.find({ where: { boardId }, loadRelationIds: true });
 	return tasks
 }
 
-const getTask = async (idTask: string, idBoard: string) => { 
-	const task = await Task.findOne({ id: idTask, boardId: idBoard });
+const getTask = async (idTask: string, boardId: string) => { 
+	const task = await Task.findOne(idTask, {
+    where: { boardId },
+    loadRelationIds: true
+  });
 
 	if(!task){
-		throw new ErrorNotFound("Not Found!");
+		throw new ErrorNotFound("Task Not Found!");
 	}
 
 	return task;
@@ -31,7 +34,8 @@ const updateTask = async (idTask: string, idBoard: string, params: TaskDTO) => {
 };
 
 const removeTask = async (idTask: string, idBoard: string) => {
-	await Task.delete({ id: idTask, boardId: idBoard })
+	const task = await getTask(idTask, idBoard);
+	await Task.delete({ id: task.id, boardId: task.boardId });
 };
 
 export default { getAllTask, getTask, addTask, updateTask, removeTask };
