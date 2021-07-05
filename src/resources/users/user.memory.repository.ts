@@ -1,7 +1,7 @@
+import bcrypt from 'bcrypt';
 import User from '../../entity/user.model'
-import Task from '../../entity/task.model'
 import { UserDTO } from '../../common/interfacesAndTypeDB';
-
+import ErrorNotFound from '../../error/errorNotFound';
 
 const getAllUsers = async () => {
 	const users = await User.find();
@@ -10,11 +10,21 @@ const getAllUsers = async () => {
 
 const getUserId = async ( id: string ) => {
 	const user = await User.findOne(id);
+
+	if(!user){
+		throw new ErrorNotFound("User Not Found!");
+	}
+
 	return user;
 };
 
 const addUser = async ( reqBody: User ) => {
-	const newUser = User.create(reqBody);
+	const params = {
+		name: reqBody.name,
+		login: reqBody.login,
+		password: await bcrypt.hash(reqBody.password, 10),
+	};
+	const newUser = User.create(params);
 	const res = await User.save(newUser);
 	return res;
 };
@@ -27,8 +37,8 @@ const updateUser = async ( id: string, params: UserDTO ) => {
 };
 
 const removeUser = async ( id: string ) => {
-	await Task.fixUsersStructure(await getUserId(id));
-	await User.delete(id);
+	const user = await getUserId(id);
+	await User.delete(user.id);
 };
 
 export default { getAllUsers, getUserId, addUser, updateUser, removeUser };

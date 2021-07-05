@@ -5,14 +5,14 @@ export default class User extends BaseEntity {
 	@PrimaryGeneratedColumn('uuid')
 	id!: string;
 
-	@Column({length: 50})
-	name!: string;
+	@Column({ type: 'varchar', length: 50 })
+	name: string;
 
-	@Column({length: 50})
-	login!: string;
+	@Column({type: 'varchar', length: 100})
+	login: string;
 
-	@Column({length: 50})
-	password!: string;
+	@Column({type: 'varchar', length: 150})
+	password: string;
 
   static toResponse(user: User) {
     const { id, name, login } = user;

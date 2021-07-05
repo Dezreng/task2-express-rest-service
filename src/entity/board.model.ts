@@ -8,11 +8,11 @@ export default class Board extends BaseEntity {
 	@PrimaryGeneratedColumn('uuid')
 	id: string;
 
-	@Column({length: 100})
+	@Column({ type: 'varchar', length: 100})
 	title: string;
 
 	@OneToMany(() => Columns, column => column.board, {
-		nullable: true
+		nullable: true, cascade: true
 	})
 	columns: Columns[];
 }
