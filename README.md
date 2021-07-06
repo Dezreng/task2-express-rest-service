@@ -96,12 +96,14 @@ in your browser.
 
 # Fastify
 
-|--------------|----------------------------------|----------------------------------------------------------------------|
-| Requests | [total, rate, throughput] | 118489, 11848.94, 11848.84 |
-| Duration | [total, attack, wait] | 10s, 10s, 80.298µs |
-| Latencies | [min, max, median, 95, 99, ] | 63.858µs, 83.763µs, 81.544µs, 88.909µs, 92.922µs, 136.839µs, 8.852ms |
-| Success | [ratio] | 100.00% |
-| Status Codes | [code:count] | 200:118489 |
+|              |                                  |                                                                      |
+| ------------ | -------------------------------- | -------------------------------------------------------------------- |
+| Requests     | [total, rate, throughput]        | 118489, 11848.94, 11848.84                                           |
+| Duration     | [total, attack, wait]            | 10s, 10s, 80.298µs                                                   |
+| Latencies    | [min, mean, 50, 90, 95, 99, max] | 63.858µs, 83.763µs, 81.544µs, 88.909µs, 92.922µs, 136.839µs, 8.852ms |
+| Success      | [ratio]                          | 100.00%                                                              |
+| Status Codes | [code:count]                     | 200:118489                                                           |
+
 
 ## Running application using Docker
 
