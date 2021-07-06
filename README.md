@@ -51,11 +51,8 @@ $ npm run start:prod
 # unit tests
 $ npm run test
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+# auth tests
+$ npm run test:auth
 ```
 
 # RS School REST service
@@ -84,8 +81,27 @@ npm start
 ```
 
 After starting the app on port (4000 as default) you can open
-in your browser OpenAPI documentation by typing http://localhost:4000/doc/.
-For more information about OpenAPI/Swagger please visit https://swagger.io/.
+in your browser.
+
+
+# Express
+
+|              |                                  |                                                                          |
+| ------------ | -------------------------------- | ------------------------------------------------------------------------ |
+| Requests     | [total, rate, throughput]        | 65584, 6558.34, 6558.26                                                  |
+| Duration     | [total, attack, wait]            | 10s, 10s, 130.149µs                                                      |
+| Latencies    | [min, mean, 50, 90, 95, 99, max] | 122.225µs, 151.803µs, 147.911µs, 160.265µs, 164.189µs, 194.74µs, 3.094ms |
+| Success      | [ratio]                          | 100.00%                                                                  |
+| Status Codes | [code:count]                     | 200:65584                                                                |
+
+# Fastify
+
+|--------------|----------------------------------|----------------------------------------------------------------------|
+| Requests | [total, rate, throughput] | 118489, 11848.94, 11848.84 |
+| Duration | [total, attack, wait] | 10s, 10s, 80.298µs |
+| Latencies | [min, max, median, 95, 99, ] | 63.858µs, 83.763µs, 81.544µs, 88.909µs, 92.922µs, 136.839µs, 8.852ms |
+| Success | [ratio] | 100.00% |
+| Status Codes | [code:count] | 200:118489 |
 
 ## Running application using Docker
 
@@ -103,6 +119,14 @@ docker pull dezreng/rest-api:latest
 ```
 docker run -p 4000:4000 rest-api
 ```
+
+Run tests in docker
+To do this, go to the container and enter the command
+
+```
+npm run test:auth
+```
+
 
 .env example
 
@@ -182,12 +206,6 @@ For more information, visit: https://code.visualstudio.com/docs/editor/debugging
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 
