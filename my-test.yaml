@@ -1,8 +1,9 @@
 config:
   target: 'http://localhost:4000'
   phases:
-  - duration: 30
-    arrivalRate: 1   
+  - duration: 50
+    arrivalRate: 1
+    rampTo: 25   
     name: Warm up
   defaults:
     headers:
