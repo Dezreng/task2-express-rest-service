@@ -1,0 +1,73 @@
+config:
+  target: 'http://localhost:4000'
+  phases:
+  - duration: 30
+    arrivalRate: 1
+    
+    name: Warm up
+  defaults:
+    headers:
+      authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI2ZmI2MWFiLTAzNTMtNGE3MS1iMmQ0LTdjNDQ0MzAxNmQxYiIsImxvZ2luIjoiYWRtaW4iLCJpYXQiOjE2MjU1MjE3OTQsImV4cCI6MTYyNTYwODE5NH0.BndG9Y6v6OHZarUSmuE1mA3et02VFkO9eI_xSna-GcA'
+  payload:
+  -
+    path: "create.csv"
+    fields:
+      - "name"
+      - "login"
+      - "password"
+  -
+    path: "up.csv"
+    fields:
+      - "upName"
+      - "upLogin"
+      - "upPassword"
+scenarios:
+  -
+    name: 'visit'
+    flow:
+      - 
+        post:
+          url: '/users'
+          json:
+            name: '{{ name }}'
+            login: '{{ login }}'
+            password: '{{ password }}'
+          capture:
+            json: '$.id'
+            as: id
+          expect:
+            code: 201
+      -
+        get:
+          url: '/users/{{id}}'
+          expect:
+            code: 200
+      -
+        think: 1
+      -
+        put:
+          url: '/users/{{id}}'
+          json:
+            name: '{{ upName }}'
+            login: '{{ upLogin }}'
+            password: '{{ upPassword }}'
+          expect:
+            code: 200
+      -
+        think: 1
+      -
+        get:
+          url: '/users'
+          expect:
+            code: 200
+      -
+        delete:
+          url: '/users/{{id}}'
+          expect:
+            code: 200
+
+
+
+
+
+

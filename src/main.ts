@@ -12,7 +12,7 @@ import { INestApplication } from '@nestjs/common';
 
 async function bootstrap() {
   let app: INestApplication;
-  if (process.env.USE_FASTIFY === 'true') {
+  if (process.env['USE_FASTIFY'] === 'true') {
     app = await NestFactory.create<NestFastifyApplication>(
       AppModule,
       new FastifyAdapter(),
@@ -33,9 +33,8 @@ async function bootstrap() {
     await userRep.save(userAdmin);
   }
 
-  console.log(app);
-  await app.listen(process.env.PORT, () =>
-    console.log(`App is running on http://localhost:${process.env.PORT}`),
+  await app.listen(process.env['PORT'], () =>
+    console.log(`App is running on http://localhost:${process.env['PORT']}`),
   );
 }
 bootstrap();
