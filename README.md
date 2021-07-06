@@ -86,13 +86,14 @@ in your browser.
 
 # Express
 
-|              |                                  |                                                                          |
-| ------------ | -------------------------------- | ------------------------------------------------------------------------ |
-| Requests     | [total, rate, throughput]        | 65584, 6558.34, 6558.26                                                  |
-| Duration     | [total, attack, wait]            | 10s, 10s, 130.149µs                                                      |
-| Latencies    | [min, mean, 50, 90, 95, 99, max] | 122.225µs, 151.803µs, 147.911µs, 160.265µs, 164.189µs, 194.74µs, 3.094ms |
-| Success      | [ratio]                          | 100.00%                                                                  |
-| Status Codes | [code:count]                     | 200:65584                                                                |
+|                      |                                                               |                            |
+| -------------------- | ------------------------------------------------------------- | -------------------------- |
+| Requests             | [Scenarios launched, Scenatios completed, Requests completed] | 667, 667, 3335             |
+| Pesponse time (msec) | [min, max, median, p95, p99]                                  | 3, 2862, 164, 2296.3, 2473 |
+| Mean response/sec    | [Mean response]                                               | 57.64                      |
+| Scenario counts      | [visit]                                                       | 667, 100.00%               |
+| Status Codes         | [code:count]                                                  | 200:2668, 201:667          |
+
 
 # Fastify
 
