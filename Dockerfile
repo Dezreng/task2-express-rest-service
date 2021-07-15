@@ -3,5 +3,5 @@ WORKDIR /app
 COPY package*.json .
 RUN npm install
 COPY . .
-RUN npx tsc
-CMD ["node", "./build/server.js"]
+RUN npm run build
+CMD ["node", "./dist/main.js"]
